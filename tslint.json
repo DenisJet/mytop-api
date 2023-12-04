@@ -44,7 +44,7 @@
 		"import-spacing": true,
 		"max-line-length": [
 			true,
-			120
+			100
 		],
 		"no-trailing-whitespace": false,
 		"quotemark": [
@@ -58,8 +58,8 @@
 		"trailing-comma": false,
 		"indent": [
 			true,
-			"tabs",
-			4
+			"spaces",
+			2
 		],
 		"linterOptions": {
 			"exclude": [
