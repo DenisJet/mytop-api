@@ -5,9 +5,6 @@ import { Types } from 'mongoose';
 export interface ReviewModel extends Base {}
 export class ReviewModel extends TimeStamps {
   @prop()
-  _id: string;
-
-  @prop()
   name: string;
 
   @prop()
