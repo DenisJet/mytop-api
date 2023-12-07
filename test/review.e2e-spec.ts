@@ -2,8 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { CreateReviewDto } from 'src/review/dto/create-review.dto';
+import { CreateReviewDto } from '../src/review/dto/create-review.dto';
 import { Types, disconnect } from 'mongoose';
+import { REVIEW_NOT_FOUND } from '../src/review/review.constants';
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -28,7 +29,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/review/:id (POST)', async () => {
+  it('/review/:id (POST) - success', async () => {
     return request(app.getHttpServer())
       .post('/review/create')
       .send(testDto)
@@ -39,7 +40,7 @@ describe('AppController (e2e)', () => {
       });
   });
 
-  it('/review/byProduct/:productId (GET)', async () => {
+  it('/review/byProduct/:productId (GET) - success', async () => {
     return request(app.getHttpServer())
       .get('/review/byProduct/' + productId)
       .expect(200)
@@ -48,10 +49,28 @@ describe('AppController (e2e)', () => {
       });
   });
 
-  it('/review/create (DELETE)', () => {
+  it('/review/byProduct/:productId (GET) - fail', async () => {
+    return request(app.getHttpServer())
+      .get('/review/byProduct/' + new Types.ObjectId().toHexString())
+      .expect(200)
+      .then(({ body }: request.Response) => {
+        expect(body.length).toBe(0);
+      });
+  });
+
+  it('/review/create (DELETE) - success', () => {
     return request(app.getHttpServer())
       .delete('/review/' + createdId)
       .expect(200);
+  });
+
+  it('/review/create (DELETE) - fail', () => {
+    return request(app.getHttpServer())
+      .delete('/review/' + new Types.ObjectId().toHexString())
+      .expect(404, {
+        statusCode: 404,
+        message: REVIEW_NOT_FOUND,
+      });
   });
 
   afterAll(() => {
