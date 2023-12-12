@@ -8,11 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@v5
-        with:
-          name: ghcr.io/DenisJet/mytop-api/mytop-api
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: ghcr.io
-          tags: 'develop'
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: build
+        run: |
+          docker build . -t denisjet/mytop-api:latest
+      - name: publish
+        run: |
+          docker login -u denisjet -p ${{secrets.DOCKER_HUB_TOKEN}}
+          docker push denisjet/mytop-api:latest
