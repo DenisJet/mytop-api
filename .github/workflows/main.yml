@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@master
       - name: Publish to registy
         uses: elgohr/Publish-Docker-Github-Action@master
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           name: docker.pkg.github.com/DenisJet/mytop-api/mytop-api
           username: ${{ secrets.DOCKER_USERNAME }}
