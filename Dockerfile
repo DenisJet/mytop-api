@@ -5,3 +5,4 @@ RUN npm install --legacy-peer-deps
 ADD . .
 RUN npm run build
 CMD ["node", "./dist/main.js"]
+EXPOSE 3000
