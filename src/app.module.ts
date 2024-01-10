@@ -31,5 +31,7 @@ import { getTelegramConfig } from './configs/telegram.config';
       useFactory: getTelegramConfig,
     }),
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
