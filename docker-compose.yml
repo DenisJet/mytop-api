@@ -7,7 +7,7 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./.env:/opt/app/.env
+      - ./.env:/mytop/.env
   mongo:
     image: mongo:4.4.4
     container_name: mytop-mongo
